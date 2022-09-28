@@ -1,14 +1,15 @@
 ## Description
 This repo exists to be used as a template for new projects using nest-js. It comes with:
 - Prometheus Metrics (and interceptor for response time)
-- Postgres integration throgh typeORM
-- Redis integration (no cache)
+- Postgres integration with typeORM
+- Redis integration (not cache)
 - Basic Lint
 - Tests structure (and sqlite as test-util) 
 - .gitlab-cy.yml with build and test pipeline
 - Log level configuration
 - Basic configuration file for env vars
 - Swagger
+- Docker compose (for local development)
 
 ## Dependencies
 - Docker
