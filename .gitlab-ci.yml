@@ -1,0 +1,59 @@
+image: node:latest
+
+stages:
+  - build
+  - lints_and_tests
+
+build:
+  stage: build
+  script:
+    - npm install
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
+
+lint:
+  stage: lints_and_tests
+  dependencies:
+    - build
+  script:
+    - npm run lint
+
+test_unit_and_integration:
+  stage: lints_and_tests
+  dependencies:
+    - build
+  script:
+    - npm run test:cov
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - coverage/
+
+test_e2e:
+  services:
+    - postgres:9.6.9
+    - redis:6.2.0-alpine
+  variables:
+    POSTGRES_DB: root
+    POSTGRES_USER: root
+    POSTGRES_PASSWORD: root
+    POSTGRES_HOST_AUTH_METHOD: trust
+  stage: lints_and_tests
+  dependencies:
+    - build
+  script:
+    - export REDIS_PORT=6379
+    - export REDIS_HOST=redis
+    - export PG_HOST=postgres
+    - export PG_PORT=root
+    - export PG_USER=root
+    - export PG_PASS=root
+    - export PG_DATABASE=root
+    - npm run test:e2e
