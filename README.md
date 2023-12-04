@@ -2,7 +2,7 @@
 This repo exists to be used as a template for new projects using nest-js. It comes with:
 - Prometheus Metrics (and interceptor for response time)
 - Postgres integration with typeORM
-- Redis integration (not cache)
+- Redis integration
 - Basic Lint
 - Tests structure (and sqlite as test-util) 
 - .gitlab-cy.yml with build and test pipeline
@@ -35,12 +35,12 @@ $ npm run start:prod
 
 ## Test
 ```bash
-# Testes unitários
+# unit tests
 $ npm run test
 
-# Testes end-to-end
+# end-to-end
 $ npm run test:e2e
 
-# testes com cobertura
+# tests with coverage
 $ npm run test:cov
 ```
